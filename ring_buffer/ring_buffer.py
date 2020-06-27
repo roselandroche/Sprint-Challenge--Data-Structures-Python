@@ -13,7 +13,6 @@ class RingBuffer():
         if self.capacity > self.length:
             self.length += 1
             self.storage.append(item)
-            self.oldest += 1
         # if no space, rewrite oldest item to new item
         elif self.capacity == self.length:
             self.storage[self.oldest - 1] = item
