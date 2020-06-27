@@ -9,28 +9,16 @@ class RingBuffer():
         self.oldest = 0
 
     def append(self, item):
-        # adds given element to buffer if there is space
-        if self.capacity > self.length:
-            self.length += 1
+        if self.oldest is self.capacity:
+            self.oldest = 0
+        if len(self.storage) <= self.oldest:
             self.storage.append(item)
-        # if no space, rewrite oldest item to new item
-        elif self.capacity == self.length:
-            self.storage[self.oldest - 1] = item
-            if self.oldest == self.capacity:
-                self.oldest = 1
-            else:
-                self.oldest += 1
+        else:
+            self.storage[self.oldest] = item
+        self.oldest += 1
 
     def get(self):
-        # returns all elements in buffer in a list
-            # in their given order
-        # DO NOT RETURN ANY NONE VALUES
-        output = []
-        for item in range(self.length):
-            if self.storage[item] != None:
-                output += [self.storage[item]]
-        print(output)
-        return output
+        return self.storage
 
 example = RingBuffer(3)
 example.append(1)
